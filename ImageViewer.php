@@ -30,19 +30,19 @@ class ImageViewer extends \ExternalModules\AbstractExternalModule {
     #region Hooks -----------------------------------------------------------------------------------------------------------
 
     // Capture normal data-entry
-    function hook_data_entry_form_top($project_id, $record = NULL, $instrument, $event_id, $group_id = NULL, $repeat_instance = 1) {
+    function hook_data_entry_form_top($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance) {
         $this->initLogger();
         $this->renderPreview($project_id, $instrument,$record, $event_id, $repeat_instance);
     }
 
     // Capture surveys
-    function hook_survey_page_top($project_id, $record = NULL, $instrument, $event_id, $group_id = NULL, $survey_hash, $response_id = NULL, $repeat_instance = 1) {
+    function hook_survey_page_top($project_id, $record, $instrument, $event_id, $group_id, $survey_hash, $response_id, $repeat_instance) {
         $this->initLogger();
         $this->renderPreview($project_id, $instrument, $record, $event_id, $repeat_instance, $survey_hash);
     }
 
     // Designer and Project Setup cosmetics
-    function hook_every_page_top($project_id = null)
+    function hook_every_page_top($project_id)
     {
         $this->initLogger();
         // When on the online designer, let's highlight the fields tagged for this EM
@@ -63,7 +63,7 @@ class ImageViewer extends \ExternalModules\AbstractExternalModule {
     }
 
     // Renders the preview after a fresh upload
-    function hook_every_page_before_render($project_id = null)
+    function hook_every_page_before_render($project_id)
     {
         $this->initLogger();
         $project_id = $project_id === null ? -1 : $project_id * 1;
